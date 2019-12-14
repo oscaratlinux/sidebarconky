@@ -1,0 +1,107 @@
+conky.config = {
+own_window = true,
+own_window_type = 'normal',
+own_window_transparent = false,
+own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',
+own_window_colour = '#000000',
+own_window_class = 'Conky',
+own_window_title = 'sidebar Conky',
+
+minimum_width = 360, 
+minimum_height = 940,
+maximum_width = 360,
+
+gap_x = 1540,--## left | right
+gap_y = -370,--## up | down
+
+
+use_xft = true,
+font = 'gomono nerd font:size=10',
+
+override_utf8_locale = true,
+
+uppercase = false,
+draw_shades = false,--yes
+default_shade_color = 'black',
+
+draw_outline = false,-- amplifies text if yes
+default_outline_color = 'black',
+
+default_color = '#5D6474',-- dark
+color1 = '#ffffff',-- white
+color2 = '#bf616a',-- Red
+color3 = '#a3be8c',-- Green
+color4 = '#ebcb8b',-- Yellow
+color5 = '#81a1c1',-- Blue
+color6 = '#7F7F7F',-- Gray
+
+draw_borders = false,
+stippled_borders = 0,
+border_inner_margin = 0,
+border_outer_margin = 0,
+border_width = 0,
+draw_graph_borders = false,--no
+background = true,
+use_spacer = 'none',
+no_buffers = true,
+short_units = true,
+pad_percents = 2,
+imlib_cache_size = 0,
+double_buffer = true,
+update_interval = 1.0,
+
+lua_load = '/home/oscar/.conclock/scripts/clock_rings.lua',
+lua_draw_hook_pre = 'clock_rings',
+
+};
+
+conky.text = [[
+${image ~/.icons/custom/dark.png -p 0,0}
+${image ~/.conclock/clock1.png -p 93,26 -s 170x170}
+${voffset 0}
+${exec  /home/oscar/sacada.sh}
+${if_existing .playing}${image ~/portacd.png -p 40,210 -s 280x340}
+${else}${image ~/.icons/custom/radio2.png -p 10,210 -s 340x340}${endif}
+
+${voffset 400}${offset 25}${color1}${font gomono nerd font:Bold:size=16} ${if_existing .playing}${exec rhythmbox-client --no-start --print-playing-format=%aa}${else}${exec tail -1 radioplay}${endif}
+
+${voffset -35}${offset 35}${color1}${font gomono nerd font:size=12} ${if_existing .playing}${exec rhythmbox-client --no-start --print-playing-format=%tt}${else}${exec grep icy radiosong | tail -1 | cut -d: -f2 | cut -d- -f1}${endif}
+
+${voffset -20}${offset 35}${color4}${font gomono nerd font:size=12} ${if_existing .playing}${exec rhythmbox-client --no-start --print-playing-format=%at}${else}${exec grep icy radiosong | tail -1 | cut -d: -f2 | cut -d- -f2}${endif}
+
+
+
+${image ~/.icons/custom/ram.png -p 20,600 -s 50x50}
+${voffset 0}${offset 10}${color1}${font gomono nerd font:Bold:size=11}RAM 
+${voffset 0}${offset 20}${font gomono nerd font:size=10}$mem / $memmax
+
+${image ~/.icons/custom/cpu.png -p 140,600 -s 50x50}
+${voffset -73}${offset 150}${font gomono nerd font:Bold:size=11}CPU  
+${voffset 0}${offset 160}${font gomono nerd font:size=10}${cpu cpu0}% 
+
+${image ~/.icons/custom/temperature.png -p 260,600 -s 50x50}
+${voffset -73}${offset 260}${font gomono nerd font:Bold:size=11}Temp 
+${voffset 0}${offset 260}${font gomono nerd font:size=10}${hwmon temp 1}°C / ${hwmon temp 2}°C 
+
+${image ~/.icons/custom/home.png -p 20,700 -s 50x50}
+${voffset 30}${offset 10}${font gomono nerd font:Bold:size=11}Disco
+${voffset 0}${offset 20}${color1}${font gomono nerd font:size=10}${fs_used /home} / ${fs_size /home} 
+${offset 10}${color3}${diskiograph_read 10,120}
+${offset 10}${color3}${diskiograph_write 10,120}
+
+${image ~/.icons/custom/network.png -p 140,700 -s 35x35}
+${voffset -107}${offset 140}${color1}${font gomono nerd font:Bold:size=11}Red
+${voffset 0}${offset 140}${color1}${font gomono nerd font:size=10}${totalup wlp4s0}b / ${totaldown wlp4s0}b 
+${offset 130}${color3}${downspeedgraph 10,120}
+${offset 130}${color3}${upspeedgraph wlp4s0 10,120}
+
+${image ~/.icons/custom/wifi.png -p 270,700 -s 38x40}
+${voffset -107}${color1}${offset 270}${font gomono nerd font:Bold:size=11}Wi fi
+${voffset 0}${offset 280}${font gomono nerd font:size=10}${wireless_bitrate wlp4s0}
+
+${voffset 33}${color1}${offset 10}${font gomono nerd font:size=9}${top cpu 1}%${offset 50}${top name 1}
+${voffset 0}${color1}${offset 10}${font gomono nerd font:size=9}${top cpu 2}%${offset 50}${top name 2}
+${voffset 0}${color1}${offset 10}${font gomono nerd font:size=9}${top cpu 3}%${offset 50}${top name 3}
+${voffset 0}${color1}${offset 10}${font gomono nerd font:size=9}${top cpu 4}%${offset 50}${top name 4}
+${voffset 0}${color1}${offset 10}${font gomono nerd font:size=9}${top cpu 5}%${offset 50}${top name 5}
+]];
