@@ -1,0 +1,89 @@
+conky.config = {
+own_window = true,
+own_window_type = 'normal',
+own_window_transparent = false,
+own_window_hints = 'undecorated,below,skip_taskbar,skip_pager',
+own_window_colour = '#000000',
+own_window_class = 'Conky',
+own_window_title = 'sidebar Conky',
+
+minimum_width = 360, 
+minimum_height = 1040,
+maximum_width = 360,
+
+gap_x = 1540,--## left | right
+gap_y = -50,--## up | down
+
+use_xft = true,
+font = 'gomono nerd font:size=10',
+
+override_utf8_locale = true,
+
+uppercase = false,
+draw_shades = false,--yes
+default_shade_color = 'black',
+
+draw_outline = false,-- amplifies text if yes
+default_outline_color = 'black',
+
+default_color = '#5D6474',-- dark
+color1 = '#ffffff',-- white
+color2 = '#bf616a',-- Red
+color3 = '#a3be8c',-- Green
+color4 = '#ebcb8b',-- Yellow
+color5 = '#81a1c1',-- Blue
+color6 = '#7F7F7F',-- Gray
+color7 = '#5D7998',-- neon
+
+draw_borders = false,
+stippled_borders = 0,
+border_inner_margin = 0,
+border_outer_margin = 0,
+border_width = 0,
+draw_graph_borders = true,--no
+background = true,
+use_spacer = 'none',
+no_buffers = true,
+short_units = true,
+pad_percents = 2,
+imlib_cache_size = 0,
+double_buffer = true,
+update_interval = 1,
+
+};
+
+conky.text = [[
+${image ~/Descargas/enblanco.png -p 0,0}
+${exec  /home/oscar/sacada.sh}
+${voffset 300}${color7}${font courier:size=12}
+${offset 30}CPU 1: ${cpubar cpu1 10,230}
+${offset 30}CPU 2: ${cpubar cpu2 10,230}
+${offset 30}CPU 3: ${cpubar cpu3 10,230}
+${offset 30}CPU 4: ${cpubar cpu4 10,230}
+${offset 30}CPU 5: ${cpubar cpu5 10,230}
+${offset 30}CPU 6: ${cpubar cpu6 10,230}
+${offset 30}CPU 7: ${cpubar cpu7 10,230}${color5}
+${offset 30}GPU  : ${nvidiabar 10,230 gpuutil}${color7}
+${offset 30}RAM  : ${membar 10,230}
+${offset 30}DISCO: ${diskiograph 10,230 81a1c1 7F7F7F 0 -t}
+${offset 30}LOAD : ${loadgraph 10,230 81a1c1 7F7F7F 0 -t}
+${offset 30}UP   : ${upspeedgraph wlp4s0 10,230 81a1c1 7F7F7F}
+${offset 30}DOWN : ${downspeedgraph wlp4s0 10,230 81a1c1 7F7F7F}
+${offset 30}WIFI : ${wireless_link_bar 10,230 wlp4s0}
+
+
+${if_existing .playing}${image ~/miniporta.jpg -p 25,800 -s 80x80}
+${else}${image ~/.icons/custom/elradio.png -p 120,800 -s 120x120}${endif}
+
+
+${voffset 50}${offset 100}${color1}${font courier:size=12} ${if_existing .playing}${exec rhythmbox-client --no-start --print-playing-format=%tt}${else}${voffset 17}${exec tail -1 radioplay}${endif}
+
+${voffset -25}${offset 103}${color1}${font courier:size=12} ${if_existing .playing}${exec rhythmbox-client --no-start --print-playing-format="%te | %aa"}${else}${exec grep icy radiosong | tail -1 | cut -d: -f2 | cut -d- -f1}${endif}
+
+${voffset -25}${offset 103}${color4}${font courier:Italic:size=12} ${if_existing .playing}${exec rhythmbox-client --no-start --print-playing-format="%td | %at"}${else}${exec grep icy radiosong | tail -1 | cut -d: -f2 | cut -d- -f2}${endif}
+
+${if_existing .playing}${offset 20}${color6}${execbar 5,320 /home/oscar/Programas/bash/duracion.sh}${endif}
+${image ~/Descargas/linea-separadora-6.png -p 0,900 -s 360x10}
+${voffset 10}${alignr +30}${color5}${font Alien Encounters:size=54}${time %H}.${color5}${time %M}${font courier:size=12}
+${voffset 0}${alignr +30}${color1}${time %a %-d %B} 
+]];
